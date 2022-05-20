@@ -1,0 +1,42 @@
+{
+  "name": "devconnector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node ./server.ts",
+    "server": "nodemon ./server.ts"
+  },
+  "keywords": [
+    "MERN",
+    "full",
+    "stack",
+    "app",
+    "mongodb",
+    "nodejs",
+    "react",
+    "express",
+    "mongoose"
+  ],
+  "author": "Islomjon",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.7",
+    "express": "^4.18.1",
+    "express-validator": "^6.14.0",
+    "gravatar": "^1.8.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.4",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.35",
+    "concurrently": "^7.2.0",
+    "nodemon": "^2.0.16",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  }
+}
