@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://islom:gxv9HU54wr61AjGI@dev-connector.enf3g.mongodb.net/?retryWrites=true&w=majority",
-  "jwtSecret": "mySecretPhrase"
+  "jwtSecret": "mySecretPhrase",
+  "githubClientId": "243af1787584aec4f7d2",
+  "githubSecret": "c7cf1ac01139b86ada701993cee16f1c9f605d6a"
 }
