@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node ./server.ts",
-    "server": "nodemon ./server.ts"
+    "server": "nodemon ./server.ts",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
     "MERN",
