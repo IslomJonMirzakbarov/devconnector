@@ -1,7 +1,9 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import alertReducer from "./slices/AlertSlice";
 
 export const store = configureStore({
   reducer: {
+    alert: alertReducer,
   },
 });
 

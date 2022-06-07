@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
+import { useAppDispatch } from "../../hooks/hooks";
+import { addAlert, removeAlert } from "../../store/slices/AlertSlice";
 
 const Register = () => {
+  const dispatch = useAppDispatch();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,9 +24,14 @@ const Register = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== password2) {
+      const id: string = uuid();
+      dispatch(
+        addAlert({ msg: "Passwords do not match", alertType: "danger", id })
+      );
+      setTimeout(() => dispatch(removeAlert(id)), 5000);
       console.log("Passwords do not match.");
     } else {
-      console.log('SUCCESS!');
+      console.log("SUCCESS!");
     }
   };
 

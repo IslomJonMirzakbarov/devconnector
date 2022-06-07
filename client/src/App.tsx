@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useLocation, useRoutes } from "react-router-dom";
 import "./App.css";
+import Alert from "./components/layout/Alert";
 import Navbar from "./components/layout/Navbar";
 import { authorizedRoutes } from "./routes/authorized";
 
@@ -20,7 +21,10 @@ function App() {
         {pathname === "/" ? (
           routes
         ) : (
-          <section className="container">{routes}</section>
+          <section className="container">
+            <Alert />
+            {routes}
+          </section>
         )}
       </div>
       <ReactQueryDevtools initialIsOpen={false} />
