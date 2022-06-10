@@ -1,7 +1,16 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useMutation } from "react-query";
 import { v4 as uuid } from "uuid";
 import { useAppDispatch } from "../../hooks/hooks";
 import { addAlert, removeAlert } from "../../store/slices/AlertSlice";
+import { registerSuccess } from "../../store/slices/AuthSlice";
+
+interface UserType {
+  name: string;
+  email: string;
+  password: string;
+}
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +30,11 @@ const Register = () => {
       [e.target.name]: e.target.value,
     });
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const mutation = useMutation((newUser: UserType) => {
+    return axios.post("/api/users", newUser);
+  });
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== password2) {
       const id: string = uuid();
@@ -31,7 +44,19 @@ const Register = () => {
       setTimeout(() => dispatch(removeAlert(id)), 5000);
       console.log("Passwords do not match.");
     } else {
-      console.log("SUCCESS!");
+      try {
+        const response = await mutation.mutateAsync({ name, email, password });
+        // console.log(response.data);
+
+        dispatch(registerSuccess(response.data));
+      } catch (err: any) {
+        const id: string = uuid();
+        // console.error(err.response.data.errors);
+        err.response.data.errors.forEach((error: any) => {
+          dispatch(addAlert({ msg: error.msg, alertType: "danger", id }));
+          setTimeout(() => dispatch(removeAlert(id)), 5000);
+        });
+      }
     }
   };
 
