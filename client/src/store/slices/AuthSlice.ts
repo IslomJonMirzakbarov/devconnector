@@ -33,9 +33,26 @@ export const AuthSlice = createSlice({
         loading: false,
       };
     },
+    loadUser: (state, action: any) => {
+      state.value = {
+        ...state.value,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload,
+      };
+    },
+    setAuthError: (state) => {
+      state.value = {
+        user: null,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+      };
+    },
   },
 });
 
-export const { registerSuccess, registerFail } = AuthSlice.actions;
+export const { registerSuccess, registerFail, loadUser, setAuthError } =
+  AuthSlice.actions;
 
 export default AuthSlice.reducer;
