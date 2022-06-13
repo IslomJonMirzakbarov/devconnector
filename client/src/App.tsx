@@ -7,14 +7,17 @@ import "./App.css";
 import Alert from "./components/layout/Alert";
 import Navbar from "./components/layout/Navbar";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
-import { authorizedRoutes } from "./routes/authorized";
 import { loadUser, setAuthError } from "./store/slices/AuthSlice";
 import { RootState } from "./store/store";
 import { setAuthToken } from "./utils/utils";
+import { authorizedRoutes } from "./routes/authorized";
+import { publicRoutes } from "./routes/public";
 
 function App() {
-  const routes = useRoutes(authorizedRoutes);
   const { pathname } = useLocation();
+  const {isAuthenticated} = useAppSelector((store: RootState) => store.auth.value);
+  const filteredRoutes = isAuthenticated ? authorizedRoutes : publicRoutes;
+  const routes = useRoutes(filteredRoutes);
 
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((store: RootState) => store.auth.value);

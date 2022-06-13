@@ -1,14 +1,13 @@
-import Login from "../components/auth/Login";
-import Register from "../components/auth/Register";
-import Landing from "../components/layout/Landing";
+import { Navigate } from "react-router-dom";
+import Dashboard from "../pages/Dashboard";
 
 export const authorizedRoutes = [
   {
-    path: "/",
+    path: "",
     children: [
-      { path: "/", element: <Landing /> },
-      { path: "/login", element: <Login /> },
-      { path: "/register", element: <Register /> },
+      { path: "/dashboard", element: <Dashboard /> },
+      { path: "/", element: <Navigate replace to='/dashboard' /> },
+      { path: "*", element: <Navigate replace to='/' /> },
     ],
   },
 ];
