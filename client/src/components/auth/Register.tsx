@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { addAlert, removeAlert } from "../../store/slices/AlertSlice";
-import { registerSuccess } from "../../store/slices/AuthSlice";
+import { loadUser, registerSuccess } from "../../store/slices/AuthSlice";
+import { RootState } from "../../store/store";
+import { setAuthToken } from "../../utils/utils";
 
 interface UserType {
   name: string;
@@ -14,6 +17,13 @@ interface UserType {
 
 const Register = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAppSelector(
+    (store: RootState) => store.auth.value
+  );
+  if (isAuthenticated) {
+    navigate("/dashboard");
+  }
 
   const [formData, setFormData] = useState({
     name: "",
@@ -46,9 +56,11 @@ const Register = () => {
     } else {
       try {
         const response = await mutation.mutateAsync({ name, email, password });
-        // console.log(response.data);
-
         dispatch(registerSuccess(response.data));
+
+        setAuthToken(response.data.token);
+        const resUser = await axios.get("/api/auth");
+        dispatch(loadUser(resUser.data));
       } catch (err: any) {
         const id: string = uuid();
         // console.error(err.response.data.errors);
@@ -73,6 +85,7 @@ const Register = () => {
       >
         <div className="form-group">
           <input
+            hidden
             type="text"
             value={name}
             onChange={(e) => onChange(e)}
@@ -83,6 +96,7 @@ const Register = () => {
         </div>
         <div className="form-group">
           <input
+            hidden
             value={email}
             onChange={(e) => onChange(e)}
             type="email"
@@ -96,6 +110,7 @@ const Register = () => {
         </div>
         <div className="form-group">
           <input
+            hidden
             type="password"
             placeholder="Password"
             value={password}
@@ -106,6 +121,7 @@ const Register = () => {
         </div>
         <div className="form-group">
           <input
+            hidden
             type="password"
             value={password2}
             onChange={(e) => onChange(e)}
@@ -114,7 +130,12 @@ const Register = () => {
             minLength={6}
           />
         </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
+        <input
+          hidden
+          type="submit"
+          className="btn btn-primary"
+          value="Register"
+        />
       </form>
       <p className="my-1">
         Already have an account? <a href="login.html">Sign In</a>
