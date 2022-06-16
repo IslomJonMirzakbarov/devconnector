@@ -14,7 +14,7 @@ const Dashboard = () => {
     } catch (err: any) {
       dispatch(
         profileError({
-          msg: err.response.statusText,
+          msg: err.response.data.msg,
           status: err.response.status,
         })
       );
