@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "../components/dashboard/Dashboard";
 
 export const authorizedRoutes = [
   {

@@ -10,6 +10,7 @@ import thunk from "redux-thunk";
 
 import alertReducer from "./slices/AlertSlice";
 import authReducer from "./slices/AuthSlice";
+import profileReducer from "./slices/ProfileSlice";
 
 const persistConfig = {
   key: "root",
@@ -20,6 +21,7 @@ const persistConfig = {
 const reducers = combineReducers({
   alert: alertReducer,
   auth: authReducer,
+  profile: profileReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
