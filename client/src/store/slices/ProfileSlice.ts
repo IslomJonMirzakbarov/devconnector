@@ -26,11 +26,22 @@ export const ProfileSlice = createSlice({
         ...state.value,
         error: payload,
         loading: false,
+        profile: null,
+        repos: [],
+      };
+    },
+    clearProfile: (state) => {
+      state.value = {
+        ...state.value,
+        profile: null,
+        repos: [],
+        loading: false,
+        error: {},
       };
     },
   },
 });
 
-export const { getProfile, profileError } = ProfileSlice.actions;
+export const { getProfile, profileError, clearProfile } = ProfileSlice.actions;
 
 export default ProfileSlice.reducer;

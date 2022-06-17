@@ -1,10 +1,17 @@
 import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
-import { useAppDispatch } from "../../hooks/hooks";
+import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { getProfile, profileError } from "../../store/slices/ProfileSlice";
+import { RootState } from "../../store/store";
+import Spinner from "../layout/Spinner";
 
 const Dashboard = () => {
+  const { profile, loading } = useAppSelector(
+    (store: RootState) => store.profile.value
+  );
+  const { user } = useAppSelector((store: RootState) => store.auth.value);
   const dispatch = useAppDispatch();
 
   useQuery("get-profile", async () => {
@@ -20,7 +27,21 @@ const Dashboard = () => {
       );
     }
   });
-  return <div>Dashboard</div>;
+  if (loading && profile === null) <Spinner />;
+
+  return profile !== null ? (
+    <h4>TODO: DISPLAY PROFILE</h4>
+  ) : (
+    <>
+      <div>
+        <p className="lead text-muted">Welcome {user && user.name}</p>
+        <p>You have not yet setup a profile, please add some info</p>
+        <Link to="/create-profile" className="btn btn-lg btn-info">
+          Create Profile
+        </Link>
+      </div>
+    </>
+  );
 };
 
 export default Dashboard;

@@ -5,12 +5,11 @@ import { persistor, store } from "./store/store";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "react-query";
+import { queryClient } from "./react-query/queryClient";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
-
-const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
