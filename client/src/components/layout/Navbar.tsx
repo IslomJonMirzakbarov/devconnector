@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { logout } from "../../store/slices/AuthSlice";
+import { clearProfile } from "../../store/slices/ProfileSlice";
 import { RootState } from "../../store/store";
 
 const Navbar = () => {
@@ -13,7 +14,19 @@ const Navbar = () => {
   const authLinks = (
     <ul>
       <li>
-        <a onClick={() => dispatch(logout())} href="#!">
+        <Link to="/dashboard">
+          <i className="fas fa-user" />{" "}
+          <span className="hide-sm">Dashboard</span>
+        </Link>
+      </li>
+      <li>
+        <a
+          onClick={() => {
+            dispatch(clearProfile());
+            dispatch(logout());
+          }}
+          href="#!"
+        >
           <i className="fas fa-sign-out-alt"></i>{" "}
           <span className="hide-sm">Logout</span>
         </a>
@@ -23,7 +36,7 @@ const Navbar = () => {
   const guestLinks = (
     <ul>
       <li>
-        <a href="profiles.html">Developers</a>
+        <Link to={'#!'}>Developers</Link>
       </li>
       <li>
         <Link to={"/register"}>Register</Link>
