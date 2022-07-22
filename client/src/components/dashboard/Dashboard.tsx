@@ -6,11 +6,13 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { getProfile, profileError } from "../../store/slices/ProfileSlice";
 import { RootState } from "../../store/store";
 import Spinner from "../layout/Spinner";
+import DashboardActions from "./DashboardActions";
 
 const Dashboard = () => {
   const { profile, loading } = useAppSelector(
     (store: RootState) => store.profile.value
   );
+  // console.log(profile);
   const { user } = useAppSelector((store: RootState) => store.auth.value);
   const dispatch = useAppDispatch();
 
@@ -30,7 +32,9 @@ const Dashboard = () => {
   if (loading && profile === null) <Spinner />;
 
   return profile !== null ? (
-    <h4>TODO: DISPLAY PROFILE</h4>
+    <>
+      <DashboardActions />
+    </>
   ) : (
     <>
       <div>

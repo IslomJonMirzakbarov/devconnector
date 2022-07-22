@@ -2,10 +2,15 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hooks";
 import { createProfile } from "../../store/slices/profile.thunk";
-import { store } from "../../store/store";
+import { RootState, store } from "../../store/store";
 
-const CreateProfile = () => {
+const EditProfile = () => {
+  const navigate = useNavigate();
+  const { profile } = useAppSelector((store: RootState) => store.profile.value);
+  console.log(profile);
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -14,21 +19,29 @@ const CreateProfile = () => {
   const { mutateAsync } = useMutation((fdd): any => {
     return axios.post("api/profile", fdd, config);
   });
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    company: "",
-    website: "",
-    location: "",
-    status: "",
-    skills: "",
-    githubusername: "",
-    bio: "",
-    twitter: "",
-    facebook: "",
-    linkedin: "",
-    youtube: "",
-    instagram: "",
-  });
+
+  let smData;
+  if (profile.payload) {
+    smData = profile.payload;
+  } else {
+    smData = {
+      company: "",
+      website: "",
+      location: "",
+      status: "",
+      skills: "",
+      githubusername: "",
+      bio: "",
+      twitter: "",
+      facebook: "",
+      linkedin: "",
+      youtube: "",
+      instagram: "",
+    };
+  }
+
+  const [formData, setFormData] = useState(smData);
+
   const [toggleSocialLinks, setToggleSocialLinks] = useState(false);
 
   const {
@@ -54,7 +67,7 @@ const CreateProfile = () => {
     store.dispatch(
       createProfile({
         formData: formData,
-        edit: false,
+        edit: true,
         mutateAsynch: mutateAsync,
         navigate: navigate,
       })
@@ -63,7 +76,7 @@ const CreateProfile = () => {
 
   return (
     <>
-      <h1 className="large text-primary">Create Your Profile</h1>
+      <h1 className="large text-primary">Edit Your Profile</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Let's get some information to make your
         profile stand out
@@ -236,4 +249,4 @@ const CreateProfile = () => {
   );
 };
 
-export default CreateProfile;
+export default EditProfile;

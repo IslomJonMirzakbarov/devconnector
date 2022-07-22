@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: any = {
   value: {
@@ -15,6 +15,13 @@ export const ProfileSlice = createSlice({
   initialState,
   reducers: {
     getProfile: (state, payload) => {
+      state.value = {
+        ...state.value,
+        profile: payload,
+        loading: false,
+      };
+    },
+    updateProfile: (state, payload) => {
       state.value = {
         ...state.value,
         profile: payload,
@@ -42,6 +49,6 @@ export const ProfileSlice = createSlice({
   },
 });
 
-export const { getProfile, profileError, clearProfile } = ProfileSlice.actions;
+export const { getProfile, updateProfile, profileError, clearProfile } = ProfileSlice.actions;
 
 export default ProfileSlice.reducer;

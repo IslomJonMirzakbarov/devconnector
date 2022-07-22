@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface AlertItem {
   msg: string;
-  alertType: string;
-  id: any;
+  alertType?: string;
+  id?: any;
 }
 
 export type AlertId = any;
