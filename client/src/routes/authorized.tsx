@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import Dashboard from "../components/dashboard/Dashboard";
+import AddEducation from "../components/profile-forms/AddEducation";
 import AddExperience from "../components/profile-forms/AddExperience";
 import CreateProfile from "../components/profile-forms/CreateProfile";
 import EditProfile from "../components/profile-forms/EditProfile";
@@ -13,6 +14,7 @@ export const authorizedRoutes = [
       { path: "/create-profile", element: <CreateProfile /> },
       { path: "/edit-profile", element: <EditProfile /> },
       { path: "/add-experience", element: <AddExperience /> },
+      { path: "/add-education", element: <AddEducation /> },
       { path: "*", element: <Navigate replace to="/" /> },
     ],
   },
