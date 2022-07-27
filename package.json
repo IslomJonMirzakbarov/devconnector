@@ -8,7 +8,8 @@
     "start": "ts-node ./server.ts",
     "server": "nodemon ./server.ts",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "testdev": "./node_modules/.bin/concurrently \"./node_modules/.bin/nodemon\" \"npm run client\""
   },
   "keywords": [
     "MERN",
