@@ -21,6 +21,27 @@ export const ProfileSlice = createSlice({
         loading: false,
       };
     },
+    getAllProfiles: (state, payload) => {
+      state.value = {
+        ...state.value,
+        profiles: payload,
+        loading: false,
+      };
+    },
+    getProfileById: (state, payload) => {
+      state.value = {
+        ...state.value,
+        profile: payload,
+        loading: false,
+      };
+    },
+    getRepos: (state, payload) => {
+      state.value = {
+        ...state.value,
+        repos: payload,
+        loading: false,
+      };
+    },
     updateProfile: (state, payload) => {
       state.value = {
         ...state.value,
@@ -49,6 +70,14 @@ export const ProfileSlice = createSlice({
   },
 });
 
-export const { getProfile, updateProfile, profileError, clearProfile } = ProfileSlice.actions;
+export const {
+  getProfile,
+  updateProfile,
+  profileError,
+  clearProfile,
+  getAllProfiles,
+  getProfileById,
+  getRepos,
+} = ProfileSlice.actions;
 
 export default ProfileSlice.reducer;
