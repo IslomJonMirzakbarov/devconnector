@@ -2,13 +2,17 @@ import { addAlert, removeAlert } from "./AlertSlice";
 import { v4 as uuid } from "uuid";
 import {
   clearProfile,
+  getAllProfiles,
   getProfile,
+  getProfileById,
+  getRepos,
   profileError,
   updateProfile,
 } from "./ProfileSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { accountDeleted } from "./AuthSlice";
+import { useQuery } from "react-query";
 
 export const createProfile = createAsyncThunk(
   "create/new-profile",
@@ -162,5 +166,75 @@ export const deleteAccount = (data: any) => async (dispatch: any) => {
         })
       );
     }
+  }
+};
+
+export const getProfiles = () => async (dispatch: any) => {
+  dispatch(clearProfile());
+  const { data } = useQuery("get-profiles", async () => {
+    const { data } = await axios.get("/api/profile");
+    return data;
+  });
+  try {
+    const idx: string = uuid();
+    await dispatch(getAllProfiles(data));
+    dispatch(
+      addAlert({ msg: "got all profiles", alertType: "success", id: idx })
+    );
+    setTimeout(() => dispatch(removeAlert(idx)), 2000);
+  } catch (err: any) {
+    console.error(err);
+    dispatch(
+      profileError({
+        msg: err.response.data.msg,
+        status: err.response.status,
+      })
+    );
+  }
+};
+
+export const getProfileByUserId = (userId: any) => async (dispatch: any) => {
+  const { data } = useQuery("get-profile-by-userId", async () => {
+    const { data } = await axios.get(`/api/profile/user/${userId}`);
+    return data;
+  });
+  try {
+    const idx: string = uuid();
+    await dispatch(getProfileById(data));
+    dispatch(
+      addAlert({ msg: "got profile by id", alertType: "success", id: idx })
+    );
+    setTimeout(() => dispatch(removeAlert(idx)), 2000);
+  } catch (err: any) {
+    console.error(err);
+    dispatch(
+      profileError({
+        msg: err.response.data.msg,
+        status: err.response.status,
+      })
+    );
+  }
+};
+
+export const getGithubRepos = (username: any) => async (dispatch: any) => {
+  const { data } = useQuery("get-profile-github-repos", async () => {
+    const { data } = await axios.get(`/api/profile/github/${username}`);
+    return data;
+  });
+  try {
+    const idx: string = uuid();
+    await dispatch(getRepos(data));
+    dispatch(
+      addAlert({ msg: "got profile repos", alertType: "success", id: idx })
+    );
+    setTimeout(() => dispatch(removeAlert(idx)), 2000);
+  } catch (err: any) {
+    console.error(err);
+    dispatch(
+      profileError({
+        msg: err.response.data.msg,
+        status: err.response.status,
+      })
+    );
   }
 };
