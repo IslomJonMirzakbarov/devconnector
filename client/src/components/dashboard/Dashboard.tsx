@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
@@ -15,7 +15,6 @@ const Dashboard = () => {
   const { profile, loading } = useAppSelector(
     (store: RootState) => store.profile.value
   );
-  // console.log(profile);
   const { user } = useAppSelector((store: RootState) => store.auth.value);
   const dispatch = useAppDispatch();
 
