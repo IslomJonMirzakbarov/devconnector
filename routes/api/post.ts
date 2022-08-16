@@ -16,6 +16,7 @@ router.post(
   "/",
   [auth, [check("text", "Text is required").not().isEmpty()]],
   async (req: any, res: Response) => {
+    console.log(req.body);
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
