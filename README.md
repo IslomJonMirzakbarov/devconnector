@@ -1,4 +1,4 @@
-# DevConnector
+# Developer Network Platform
 
 ![GitHub top language](https://img.shields.io/github/languages/top/IslomJonMirzakbarov/devconnector)
 ![GitHub stars](https://img.shields.io/github/stars/IslomJonMirzakbarov/devconnector?style=social)
